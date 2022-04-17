@@ -189,7 +189,6 @@ The GSEA was performed by feeding the *Broad Institute* website with the list of
 x <- org.Hs.egENSEMBL
 mapped_genes <- mappedkeys(x)# Convert to a list
 xx <- as.list(x[mapped_genes])
-xx
 
 names <- as.data.frame(names(xx))
 
