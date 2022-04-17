@@ -2,14 +2,14 @@
 title: 'BIO-463 : Mini-Project'
 author: "Théo Imler"
 date: "30 mai 2019"
-output: pdf_document
+output: html_document
 fig_caption: yes
 
 knit: (function(input_file, encoding) {
     out_dir <- 'docs';
     rmarkdown::render(input_file,
       encoding=encoding,
-      output_file=file.path(dirname(input_file), out_dir, 'index.pdf'))})
+      output_file=file.path(dirname(input_file), out_dir, 'index.hmtl'))})
 ---
 
 ```{r setup, include=FALSE, echo = FALSE, message = FALSE, warning=FALSE}
