@@ -256,6 +256,6 @@ Unfortunately, the results were not as significative as hoped. If the genes invo
 
 # Conclusion
 
-This report have globally confirmed the results obtained by the RNAseq experiment performed by by Sflomos, G. et al for the response of MCF7-MIND to endocrine therapy. If the results were almost identical for the differential gene expression analysis, the GSEA have shown disappointing results. One possible explanation is the number of genes fitted for the enrichment. Here, the totality of the DE genes were use while only top 100 or 200 could have been used in the article, giving a more precise output. Lastly, different GSEA methods exist and the authors could have used a more robust method that the one provided by the Broad Institute website.
+This report have globally confirmed the results obtained by the RNAseq experiment performed by Sflomos, G. et al for the response of MCF7-MIND to endocrine therapy. If the results were almost identical for the differential gene expression analysis, the GSEA have shown disappointing results. One possible explanation is the number of genes fitted for the enrichment. Here, the totality of the DE genes were use while only top 100 or 200 could have been used in the article, giving a more precise output. Lastly, different GSEA methods exist and the authors could have used a more robust method that the one provided by the Broad Institute website.
 
 In the end, the results obtained here demonstrated well an action of  the endocrine therapy but his clinical significance should be demonstrated more effectively.
