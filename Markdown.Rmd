@@ -2,14 +2,9 @@
 title: 'BIO-463 : Mini-Project'
 author: "Théo Imler"
 date: "30 mai 2019"
-output: html_document
+output: pdf_document
 fig_caption: yes
 
-knit: (function(input_file, encoding) {
-    out_dir <- 'docs';
-    rmarkdown::render(input_file,
-      encoding=encoding,
-      output_file=file.path(dirname(input_file), out_dir, 'index.hmtl'))})
 ---
 
 ```{r setup, include=FALSE, echo = FALSE, message = FALSE, warning=FALSE}
@@ -58,7 +53,7 @@ data= data[-1,]
 colnames(data) <- c("Index","cnt_M1","cnt_M2","cnt_M3","cnt_F1","cnt_F2","cnt_F3","Chrom","Start","End","Strand","GeneName","Length","Type","Sense","Synonym")
 ```
 
-#Normalization
+# Normalization
 Normalization is a crucial step in RNAseq since it is a relative measurement and due to the numerous sources of variance that could affect it. Normalization factors were calculated to scale the different raw library sizes using the **limma** package and the *voom* function. It is known that there is a strong mean-variance trend in RNA-seq data, where lowly expressed genes are more variable and highly expressed genes are more consistent. The *voom* function transform counts to log2 counts per million reads (CPM), where “per million reads” is defined based on the normalization factors calculated earlier. It fit then a linear model  to the log2 CPM for each gene, and the residuals are calculated. From these residuals, precision weights are calculated for each observation and the function return normalized expression ready for linear modeling and differential anylsis. The mean-variance trend can be visualized on Figure 1 below. 
 
 ```{r preprocessing, echo = FALSE, message = FALSE, warning=FALSE}
@@ -116,7 +111,7 @@ Figure 2: RNA counts before and after voom normalization
 
 *Voom* performed normalization with the TMM (trimmed mean of M-values) method (same as article). The main aim in TMM normalization is to account for library size variation between samples of interest accounting for the fact that some extremely differentially expressed genes would impact negatively the normalization procedure. Indeed, if a sample have more total fragments sequenced (library size), higher count will be expected. We can see that before normalization, **cnt_F2** and **cnt_F3** samples contained twice as much reads than our control samples. After voom normalization, our data are ready for downstream analysis without any biases.
 
-#Differential analysis
+# Differential analysis
 Now that the expressions are normalized, they are ready for differential expression analysis (DEA). DEA take the normalised read count and perfom statistical analysis to discover quantitative changes in expression levels between control and treatment experimental groups. DEA was performed with the **limma** package. In the DEA pipeline, a separated linear model is fitted to the expression value for each gene. Next, empirical Bayes method was used to compute moderate t-statistics and log-odds of differential expression. The null hypothesis tested is that the difference is zero. As in the article, a gene was considered as differentially expressed when the asbolute log-fold change was superior to 1 and the constrast significant (p-value <0.05). Note that since we compare expression of multiple gene in multiple conditions the q-value (adjusted p-value) was used to avoid high rate of false positive related to the multiple testing problem.
 
 As visualized on Figure 3, 4294 differentially expressed protein coding genes were identified with 2046 increased and 2248 decreased upon endocrine treatment. The results are really close from those of the article (4497 differentially expressed genes with 1924 increased and 2573 decreased) and enable the same conclusion (same magnitude of sifferentially expressed genes with slightly more decreased ones than increased).
@@ -259,7 +254,7 @@ Figure 5: GSEA outputs by the Broad Institute website
 
 Unfortunately, the results were not as significative as hoped. If the genes involved in cancer pathway were the most significative in the GSEA we could have expected to have directly breast cancer genes. As described in the article, we should have observed an impact on the expression of genes involved in ER signaling due to fulvestrant action. The rest of the significative gene sets must be interpreted carefully. The fact that focal adhesion and actin cytoskeleton gene sets were found can be due to the efficiency of endocrine treatment. Indeed, actin cystoskeleton is known to be involved in the regulation of Epithelial to Mesenchymal Transition (EMT) as focal adhesion. Residual tumor cells surviving endocrine therapy are often enriched for tumor-initiating cells with EMT features which could explain these observation. Finally, it is logical to observe ABC transporter and cytochrome p450 gene sets since both are major actor of drug transport and metabolism.
 
-#Conclusion
+# Conclusion
 
 This report have globally confirmed the results obtained by the RNAseq experiment performed by by Sflomos, G. et al for the response of MCF7-MIND to endocrine therapy. If the results were almost identical for the differential gene expression analysis, the GSEA have shown disappointing results. One possible explanation is the number of genes fitted for the enrichment. Here, the totality of the DE genes were use while only top 100 or 200 could have been used in the article, giving a more precise output. Lastly, different GSEA methods exist and the authors could have used a more robust method that the one provided by the Broad Institute website.
 
